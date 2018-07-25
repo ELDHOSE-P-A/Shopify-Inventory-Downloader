@@ -23,7 +23,8 @@ namespace Shopify_Inventory_Downloader.Tools
         //Save a ShopName into the database
         public static void SaveShopToken(String token)
         {
-            String  SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopToken ) WHERE Name= 'AccessToken' ";
+            // String  SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopToken ) WHERE Name= 'AccessToken' ";
+            String SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopToken )";
             con.Open();
             cmd = new SqlCommand(SQL_Syntax);
             cmd.CommandType = CommandType.Text;
@@ -39,7 +40,7 @@ namespace Shopify_Inventory_Downloader.Tools
 
         private void SaveShopName(String ShopName)
         {
-            String SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopName ) WHERE Name= 'ShopName' ";
+            String SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopName ) WHERE Name = ShopName ";
             con.Open();
             cmd = new SqlCommand(SQL_Syntax);
             cmd.CommandType = CommandType.Text;
