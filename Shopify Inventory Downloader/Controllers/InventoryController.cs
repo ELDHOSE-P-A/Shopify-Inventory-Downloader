@@ -10,6 +10,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
+
+
+
 namespace Shopify_Inventory_Downloader.Controllers
 {
     
@@ -20,11 +23,21 @@ namespace Shopify_Inventory_Downloader.Controllers
         private string secretKey = AppSettings.ShopifySecretKey;
         private string appUrl = AppSettings.AppUrl;
 
+
+       
+
+
         // GET: Inventory
-        public ActionResult install(string shop, string signature, string timestamp)
+        public ActionResult install1(string shop, string signature, string timestamp)
         {
             string r = string.Format("https://{0}/admin/oauth/authorize?client_id={1}&scope=read_products,write_products,read_product_listings&redirect_uri=https://{2}/Inventory/auth", shop, apiKey, appUrl);
             return Redirect(r);
+        }
+
+
+        public ActionResult install(String shop, string signature, string timestamp)
+        {
+
         }
 
 
@@ -117,6 +130,10 @@ namespace Shopify_Inventory_Downloader.Controllers
             //Request is valid if the calculated signature matches the signature from the querystring.
             return calculatedSignature.ToUpper() == hmac.ToUpper();
         }
+
+
+
+        
 
 
     }
