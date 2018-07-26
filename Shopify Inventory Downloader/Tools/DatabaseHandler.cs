@@ -21,20 +21,18 @@ namespace Shopify_Inventory_Downloader.Tools
         //functions
 
         //Save a ShopName into the database
-        public static void SaveShopToken(String token)
+        public static void SaveShopAndToken(String shop , String token)
         {
             // String  SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopToken ) WHERE Name= 'AccessToken' ";
-            String SQL_Syntax = "INSERT INTO SystemTable (Value)   VALUES( @ShopToken )";
+            String SQL_Syntax = "INSERT INTO SystemTable (Shop , Token)   VALUES( @Shop , @Token)";
             con.Open();
             cmd = new SqlCommand(SQL_Syntax);
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
-            cmd.Parameters.AddWithValue("@ShopToken", token);
+            cmd.Parameters.AddWithValue("@Shop", shop);
+            cmd.Parameters.AddWithValue("@Token", token);
             cmd.ExecuteNonQuery();
             con.Close();
-
-            Console.WriteLine("DEBUG    :   token is inserted now please manually check the database to ensure correctness: ");
-
             return;
         }
 
