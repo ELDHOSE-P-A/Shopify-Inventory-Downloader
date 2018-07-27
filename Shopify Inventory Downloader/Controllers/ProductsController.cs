@@ -89,8 +89,41 @@ namespace Shopify_Inventory_Downloader.Controllers
 
 
 
+        public ActionResult Upload()
+        {
+
+            // to do it:
+
+
+            ShopUrl = AppSettings.CurrentShop;
+            AccessToken = AppSettings.Token;
+            String u = string.Format("https://{0}/admin/products.json ", ShopUrl);
+            var client = new RestClient(u);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("X-Shopify-Access-Token", AccessToken);
+            var response = client.Execute(request);
+            var r = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            string json = JsonConvert.SerializeObject(r);
+            string jsonFormatted = JValue.Parse(json).ToString(Formatting.Indented);
+
+
+            // Writing JSON to file
+            string filePath = Server.MapPath("/OutPut");
+            using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter(filePath + "\\Output1.js"))
+            {
+
+                // If the line doesn't contain the word 'Second', write the line to the file.
+
+                file.Write(jsonFormatted);
+
+            }
 
 
 
-    }
+
+
+
+            return Content("nothing");
+        }
 }
